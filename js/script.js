@@ -1,8 +1,10 @@
 "use strict"
 const container = document.getElementById("container")
 const form = document.getElementById("form")
+const selectSort = document.getElementById("sort")
+const selectCategory = document.getElementById("category")
 
-const listLinks = new ListLinks(container, defaultList)
+const listLinks = new ListLinksSelect(container, defaultList)
 listLinks.init()
 
 console.log(listLinks)
@@ -21,4 +23,14 @@ form.addEventListener("submit", (event) => {
   })
   // la ligne ci-dessous fait un reset du formulaire (les champs redeviennent vides)
   form.reset()
+})
+
+selectSort.addEventListener("change", () => {
+  listLinks.sort = selectSort.value
+  listLinks.refresh()
+})
+
+selectCategory.addEventListener("change", () => {
+  listLinks.category = selectCategory.value
+  listLinks.refresh()
 })

@@ -131,3 +131,38 @@ class ListLinks {
     return buttonEl
   }
 }
+
+class ListLinksSelect extends ListLinks {
+  sort = "default"
+  category = "all"
+  addUl() {
+    const ulEl = this.createUlElement()
+    this.listToDisplay = [...this.list]
+    this.filterList()
+    this.sortList()
+    for (let el of this.listToDisplay) {
+      const li = this.addLi(el)
+      ulEl.append(li)
+    }
+    return ulEl
+  }
+  sortList() {
+    this.listToDisplay.sort((el1, el2) => {
+      switch (this.sort) {
+        case "az":
+          return el1.title.toUpperCase() < el2.title.toUpperCase() ? -1 : 1
+        case "za":
+          return el1.title.toUpperCase() > el2.title.toUpperCase() ? -1 : 1
+        default:
+          return 1
+      }
+    })
+  }
+  filterList() {
+    if (this.category !== "all") {
+      this.listToDisplay = this.listToDisplay.filter(
+        (el) => el.category === this.category
+      )
+    }
+  }
+}
